@@ -54,7 +54,7 @@ matrix_create_ones(int m, int n) {
 }
 
 matrix *
-matrix_copy(matrix *A) {
+matrix_copy(const matrix *A) {
     matrix *B = matrix_create_empty(A->m, A->n);
     for (int i = 0; i < B->m; i++) {
         for (int j = 0; j < B->n; j++) {
@@ -98,22 +98,22 @@ matrix_create_empty(int m, int n) {
 }
 
 int
-matrix_same_order(matrix *A, matrix *B) {
+matrix_same_order(const matrix *A, const matrix *B) {
     return A->m == B->m && A->n == B->n;
 }
 
 int
-matrix_can_mult(matrix *A, matrix *B) {
+matrix_can_mult(const matrix *A, const matrix *B) {
     return A->n == B->m;
 }
 
 int
-matrix_is_square(matrix *A) {
+matrix_is_square(const matrix *A) {
     return A->m == A->n;
 }
 
 matrix *
-matrix_add(matrix *A, matrix *B) {
+matrix_add(const matrix *A, const matrix *B) {
     if (!matrix_same_order(A, B)) {
         return NULL;
     }
@@ -129,7 +129,7 @@ matrix_add(matrix *A, matrix *B) {
 }
 
 matrix *
-matrix_mult(matrix *A, matrix *B) {
+matrix_mult(const matrix *A, const matrix *B) {
     if (!matrix_can_mult(A, B)) {
         return NULL;
     }
@@ -146,7 +146,7 @@ matrix_mult(matrix *A, matrix *B) {
 }
 
 int
-matrix_eq(matrix *A, matrix *B) {
+matrix_eq(const matrix *A, const matrix *B) {
     if (A == B) {
         return 1;
     }
@@ -166,7 +166,7 @@ matrix_eq(matrix *A, matrix *B) {
 }
 
 void
-matrix_print(matrix *M) {
+matrix_print(const matrix *M) {
     for (int i = 0; i < M->m; i++) {
         for (int j = 0; j < M->n; j++) {
             printf("%lf ", M->data[i][j]);
