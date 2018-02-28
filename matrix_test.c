@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "test.h"
 #include "matrix.h"
 
 #define FAIL() printf("\nfailure in %s() line %d\n", __func__, __LINE__)
