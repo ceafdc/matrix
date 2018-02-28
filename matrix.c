@@ -70,6 +70,15 @@ matrix_fill(matrix *A, double v) {
     }
 }
 
+void
+matrix_map(matrix *A, double (*f)(double)) {
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] = f(A->data[i][j]);
+        }
+    }
+}
+
 matrix *
 matrix_create_empty(int m, int n) {
     matrix *M = (matrix *)malloc(sizeof(matrix));
