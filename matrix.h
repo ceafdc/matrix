@@ -14,12 +14,13 @@ matrix *matrix_create_empty(int m, int n);
 matrix *matrix_create_va(int m, int n, ...);
 matrix *matrix_create_zeros(int m, int n);
 matrix *matrix_create_ones(int m, int n);
+matrix *matrix_copy(const matrix *A);
 
 // Arithmetic
 matrix *matrix_mult_scalar(const matrix *A, double scalar);
-matrix *matrix_mult(const matrix *A, const matrix *B);
 matrix *matrix_add(const matrix *A, const matrix *B);
-matrix *matrix_copy(const matrix *A);
+matrix *matrix_mult(const matrix *A, const matrix *B);
+
 
 // Inplace arithmetic
 void matrix_mult_scalar_inplace(matrix *A, double scalar);

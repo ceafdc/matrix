@@ -17,6 +17,20 @@ init_data(int m, int n) {
 }
 
 matrix *
+matrix_create_empty(int m, int n) {
+    if (m <= 0 || n <= 0) {
+        return NULL;
+    }
+    matrix *M = (matrix *)malloc(sizeof(matrix));
+    matrix s = (matrix){NULL, m, n};
+    memcpy(M, &s, sizeof(matrix));
+
+    M->data = init_data(m, n);
+
+    return M;
+}
+
+matrix *
 matrix_create_va(int m, int n, ...) {
     va_list ap;
     matrix *M = NULL;
@@ -65,51 +79,12 @@ matrix_copy(const matrix *A) {
     return B;
 }
 
-void
-matrix_fill(matrix *A, double v) {
-    for (int i = 0; i < A->m; i++) {
-        for (int j = 0; j < A->n; j++) {
-            A->data[i][j] = v;
-        }
-    }
-}
-
-void
-matrix_map(matrix *A, double (*f)(double)) {
-    for (int i = 0; i < A->m; i++) {
-        for (int j = 0; j < A->n; j++) {
-            A->data[i][j] = f(A->data[i][j]);
-        }
-    }
-}
-
 matrix *
-matrix_create_empty(int m, int n) {
-    if (m <= 0 || n <= 0) {
-        return NULL;
-    }
-    matrix *M = (matrix *)malloc(sizeof(matrix));
-    matrix s = (matrix){NULL, m, n};
-    memcpy(M, &s, sizeof(matrix));
+matrix_mult_scalar(const matrix *A, double scalar) {
+    matrix *B = matrix_copy(A);
+    matrix_mult_scalar_inplace(B, scalar);
 
-    M->data = init_data(m, n);
-
-    return M;
-}
-
-int
-matrix_same_order(const matrix *A, const matrix *B) {
-    return A->m == B->m && A->n == B->n;
-}
-
-int
-matrix_can_mult(const matrix *A, const matrix *B) {
-    return A->n == B->m;
-}
-
-int
-matrix_is_square(const matrix *A) {
-    return A->m == A->n;
+    return B;
 }
 
 matrix *
@@ -128,23 +103,6 @@ matrix_add(const matrix *A, const matrix *B) {
     return C;
 }
 
-void
-matrix_mult_scalar_inplace(matrix *A, double scalar) {
-    for (int i = 0; i < A->m; i++) {
-        for (int j = 0; j < A->n; j++) {
-            A->data[i][j] *= scalar;
-        }
-    }
-}
-
-matrix *
-matrix_mult_scalar(const matrix *A, double scalar) {
-    matrix *B = matrix_copy(A);
-    matrix_mult_scalar_inplace(B, scalar);
-
-    return B;
-}
-
 matrix *
 matrix_mult(const matrix *A, const matrix *B) {
     if (!matrix_can_mult(A, B)) {
@@ -160,6 +118,30 @@ matrix_mult(const matrix *A, const matrix *B) {
         }
     }
     return C;
+}
+
+void
+matrix_mult_scalar_inplace(matrix *A, double scalar) {
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] *= scalar;
+        }
+    }
+}
+
+int
+matrix_same_order(const matrix *A, const matrix *B) {
+    return A->m == B->m && A->n == B->n;
+}
+
+int
+matrix_can_mult(const matrix *A, const matrix *B) {
+    return A->n == B->m;
+}
+
+int
+matrix_is_square(const matrix *A) {
+    return A->m == A->n;
 }
 
 int
@@ -180,6 +162,24 @@ matrix_eq(const matrix *A, const matrix *B) {
     }
 
     return 1;
+}
+
+void
+matrix_map(matrix *A, double (*f)(double)) {
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] = f(A->data[i][j]);
+        }
+    }
+}
+
+void
+matrix_fill(matrix *A, double v) {
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] = v;
+        }
+    }
 }
 
 void
