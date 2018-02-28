@@ -4,6 +4,12 @@
 #include "test.h"
 #include "matrix.h"
 
+#define FAIL() printf("\nfailure in %s() line %d\n", __func__, __LINE__)
+#define _assert(test) do { if (!(test)) { FAIL(); return 1; } } while(0)
+#define _verify(test) do { int r=test(); tests_run++; if(r) return r; } while(0)
+
+int tests_run = 0;
+
 int
 test_fill() {
     matrix *A = matrix_create_empty(1000, 100);
@@ -12,10 +18,7 @@ test_fill() {
 
     for (int i = 0; i < A->m; i++) {
         for (int j = 0; j< A->n; j++) {
-            if (A->data[i][j] != value) {
-                matrix_free(A);
-                return 1;
-            }
+            _assert(A->data[i][j] == value);
         }
     }
 
@@ -29,10 +32,7 @@ test_zeros_and_ones() {
 
     for (int i = 0; i < A->m; i++) {
         for (int j = 0; j< A->n; j++) {
-            if (A->data[i][j] != 0) {
-                matrix_free(A);
-                return 1;
-            }
+            _assert(A->data[i][j] == 0);
         }
     }
 
@@ -41,10 +41,7 @@ test_zeros_and_ones() {
 
     for (int i = 0; i < A->m; i++) {
         for (int j = 0; j< A->n; j++) {
-            if (A->data[i][j] != 1) {
-                matrix_free(A);
-                return 1;
-            }
+            _assert(A->data[i][j] == 1);
         }
     }
 
@@ -65,11 +62,7 @@ test_eq() {
         5, 6
         );
 
-    if (matrix_eq(A, B)) {
-        matrix_free(A);
-        matrix_free(B);
-        return 1;
-    }
+    _assert(!matrix_eq(A, B));
 
     matrix_free(A);
     matrix_free(B);
@@ -85,11 +78,7 @@ test_eq() {
         7, 8, 9
         );
 
-    if (!matrix_eq(A, B)) {
-        matrix_free(A);
-        matrix_free(B);
-        return 1;
-    }
+    _assert(matrix_eq);
 
     matrix_free(A);
     matrix_free(B);
@@ -115,13 +104,7 @@ test_mult() {
         49, 64
         );
 
-    if (!matrix_eq(C, E)) {
-        matrix_free(A);
-        matrix_free(B);
-        matrix_free(C);
-        matrix_free(E);
-        return 1;
-    }
+    _assert(matrix_eq(C, E));
 
     matrix_free(A);
     matrix_free(B);
@@ -134,33 +117,20 @@ test_mult() {
 
 int
 make_tests() {
-    int error = 0;
-    Test *tests = NULL;
-    tests = test_append(tests, test_eq, "Teste de igualdade");
-    tests = test_append(tests, test_mult, "Teste de multiplicação");
-    tests = test_append(tests, test_zeros_and_ones, "Teste de zeros e uns");
-    tests = test_append(tests, test_fill, "Teste de fill");
-
-    Test *test_iter = tests;
-
-    while (test_iter) {
-        int this_result = test_iter->test_func();
-        error |= this_result;
-        printf("%s %s\n", test_iter->name, this_result ? "not passed" : "passed");
-        test_iter = test_iter->next;
-    }
-
-
-    if (!error) {
-        printf("\nALL TESTS PASSED\n\n");
-    }
-
-    test_free(tests);
-
-    return error;
+    _verify(test_eq);
+    _verify(test_mult);
+    _verify(test_zeros_and_ones);
+    _verify(test_fill);
+    _verify(test_copy);
+    return 0;
 }
 
 int
 main(int argc, char *argv[]) {
+    int result = make_tests();
+    if (result == 0)
+        printf("PASSED\n");
+    printf("Tests run: %d\n", tests_run);
+
     return make_tests();
 }
