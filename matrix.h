@@ -34,6 +34,9 @@ int matrix_eq(const matrix *A, const matrix *B);
 
 // Matrix stuff
 matrix *matrix_transpose(const matrix *A);
+matrix *matrix_diagonal(const matrix *A);
+matrix *matrix_row(const matrix *A, int r);
+matrix *matrix_col(const matrix *A, int c);
 
 // Functional
 void matrix_map(matrix *A, double (*f)(double));

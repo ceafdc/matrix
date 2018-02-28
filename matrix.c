@@ -186,6 +186,40 @@ matrix_transpose(const matrix *A) {
     return T;
 }
 
+matrix *
+matrix_diagonal(const matrix *A) {
+    int dim = MIN(A->m, A->n);
+
+    matrix *diagonal = matrix_create_empty(1, dim);
+    for (int i = 0; i < dim; i++) {
+        diagonal->data[0][i] = A->data[i][i];
+    }
+
+    return diagonal;
+}
+
+matrix *
+matrix_row(const matrix *A, int r) {
+    matrix *row = matrix_create_empty(1, A->n);
+
+    for (int i = 0; i < A->n; i++) {
+        row->data[0][i] = A->data[r][i];
+    }
+
+    return row;
+}
+
+matrix *
+matrix_col(const matrix *A, int c) {
+    matrix *col = matrix_create_empty(A->m, 1);
+
+    for (int i = 0; i < A->m; i++) {
+        col->data[i][0] = A->data[i][c];
+    }
+
+    return col;
+}
+
 void
 matrix_map(matrix *A, double (*f)(double)) {
     for (int i = 0; i < A->m; i++) {

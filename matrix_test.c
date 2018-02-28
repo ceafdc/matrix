@@ -284,7 +284,65 @@ int test_transpose() {
 }
 
 int
+test_diagonal() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+    matrix *diagonal = matrix_diagonal(A);
     matrix *E = matrix_create_va(1, 2,
+        12.0, -24.0
+        );
+    _assert(matrix_eq(diagonal, E));
+
+    matrix_free(A);
+    matrix_free(diagonal);
+    matrix_free(E);
+
+    return 0;
+}
+
+int
+test_row() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+
+    matrix *row = matrix_row(A, 1);
+    matrix *E = matrix_create_va(1, 2,
+        -31.0, -24.0
+        );
+
+    _assert(matrix_eq(row, E));
+
+    matrix_free(A);
+    return 0;
+}
+
+int
+test_col() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+
+    matrix *col = matrix_col(A, 1);
+    matrix *E = matrix_create_va(3, 1,
+        24.0,
+        -24.0,
+        -999.0
+        );
+
+    _assert(matrix_eq(col, E));
+
+    matrix_free(A);
+    return 0;
+}
+
 
 int
 make_tests() {
@@ -299,6 +357,9 @@ make_tests() {
         test_transpose,
         test_map,
         test_copy,
+        test_diagonal,
+        test_row,
+        test_col,
         NULL
     };
 
