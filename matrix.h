@@ -13,7 +13,9 @@ matrix *matrix_create_va(int m, int n, ...);
 matrix *matrix_create_zeros(int m, int n);
 matrix *matrix_create_ones(int m, int n);
 matrix *matrix_mult(matrix *A, matrix *B);
+matrix *matrix_copy(matrix *A);
 
+void matrix_map(matrix *A, double (*f)(double));
 void matrix_fill(matrix *A, double v);
 
 int matrix_eq(matrix *A, matrix *B);
