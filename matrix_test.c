@@ -252,16 +252,24 @@ int test_transpose() {
 
 int
 make_tests() {
-    _verify(test_eq);
-    _verify(test_mult_scalar);
-    _verify(test_mult_scalar_inplace);
-    _verify(test_mult);
-    _verify(test_add);
-    _verify(test_zeros_and_ones);
-    _verify(test_fill);
-    _verify(test_transpose);
-    _verify(test_map);
-    _verify(test_copy);
+    int (*tests[])() = {
+        test_eq,
+        test_mult_scalar,
+        test_mult_scalar_inplace,
+        test_mult,
+        test_add,
+        test_zeros_and_ones,
+        test_fill,
+        test_transpose,
+        test_map,
+        test_copy,
+        NULL
+    };
+
+    for (int i = 0; tests[i]; i++) {
+        _verify(tests[i]);
+    }
+
     return 0;
 }
 
