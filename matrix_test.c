@@ -132,7 +132,7 @@ test_eq() {
         7.0, 8.0, 9.0
         );
 
-    _assert(matrix_eq);
+    _assert(matrix_eq(A, B));
 
     matrix_free(A);
     matrix_free(B);
