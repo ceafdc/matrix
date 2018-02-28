@@ -114,7 +114,7 @@ matrix_is_square(matrix *A) {
 
 matrix *
 matrix_mult(matrix *A, matrix *B) {
-    if (A->n != B->m) {
+    if (!matrix_can_mult(A, B)) {
         return NULL;
     }
 
