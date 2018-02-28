@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "test.h"
 #include "matrix.h"
 
@@ -23,6 +24,28 @@ test_fill() {
     }
 
     matrix_free(A);
+    return 0;
+}
+
+int test_copy() {
+    matrix *A = matrix_create_va(5, 4,
+        rand(), rand(), rand(), rand(),
+        rand(), rand(), rand(), rand(),
+        rand(), rand(), rand(), rand(),
+        rand(), rand(), rand(), rand(),
+        rand(), rand(), rand(), rand()
+    );
+    matrix *B = matrix_copy(A);
+    _assert(A != B);
+
+        for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j< A->n; j++) {
+            _assert(A->data[i][j] == B->data[i][j]);
+        }
+    }
+
+    matrix_free(A);
+    matrix_free(B);
     return 0;
 }
 
@@ -127,6 +150,8 @@ make_tests() {
 
 int
 main(int argc, char *argv[]) {
+    srand(time(NULL));
+
     int result = make_tests();
     if (result == 0)
         printf("PASSED\n");
