@@ -149,7 +149,7 @@ matrix_eq(const matrix *A, const matrix *B) {
     if (A == B) {
         return 1;
     }
-    if (A->m != B->m || A->n != B->n) {
+    if (!matrix_same_order(A, B)) {
         return 0;
     }
 
