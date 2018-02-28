@@ -4,8 +4,8 @@
 typedef struct
 {
     double **data;
-    int m; // #rows
-    int n; // #cols
+    const int m; // #rows
+    const int n; // #cols
 } matrix;
 
 matrix *matrix_create_empty(int m, int n);

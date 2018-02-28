@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <float.h>
 #include <math.h>
+#include <string.h>
 #include "matrix.h"
 
 double **
@@ -82,8 +83,8 @@ matrix_map(matrix *A, double (*f)(double)) {
 matrix *
 matrix_create_empty(int m, int n) {
     matrix *M = (matrix *)malloc(sizeof(matrix));
-    M->m = m;
-    M->n = n;
+    matrix s = (matrix){NULL, m, n};
+    memcpy(M, &s, sizeof(matrix));
 
     M->data = init_data(m, n);
 
