@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <float.h>
+#include <math.h>
 #include "matrix.h"
 
 double **
@@ -95,7 +97,7 @@ matrix_eq(matrix *A, matrix *B) {
 
     for (int i = 0; i < A->m; i++) {
         for (int j = 0; j < A->n; j++) {
-            if (A->data[i][j] != B->data[i][j]) {
+            if (fabs(A->data[i][j] - B->data[i][j]) > DBL_EPSILON) {
                 return 0;
             }
         }
