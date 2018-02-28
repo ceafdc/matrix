@@ -29,11 +29,11 @@ test_fill() {
 
 int test_copy() {
     matrix *A = matrix_create_va(5, 4,
-        rand(), rand(), rand(), rand(),
-        rand(), rand(), rand(), rand(),
-        rand(), rand(), rand(), rand(),
-        rand(), rand(), rand(), rand(),
-        rand(), rand(), rand(), rand()
+        (double)rand(), (double)rand(), (double)rand(), (double)rand(),
+        (double)rand(), (double)rand(), (double)rand(), (double)rand(),
+        (double)rand(), (double)rand(), (double)rand(), (double)rand(),
+        (double)rand(), (double)rand(), (double)rand(), (double)rand(),
+        (double)rand(), (double)rand(), (double)rand(), (double)rand()
     );
     matrix *B = matrix_copy(A);
     _assert(A != B);
@@ -106,14 +106,14 @@ test_zeros_and_ones() {
 int
 test_eq() {
     matrix *A = matrix_create_va(2, 3,
-        1, 2, 3,
-        4, 5, 6
+        1.0, 2.0, 3.0,
+        4.0, 5.0, 6.0
         );
 
     matrix *B = matrix_create_va(3, 2,
-        1, 2,
-        3, 4,
-        5, 6
+        1.0, 2.0,
+        3.0, 4.0,
+        5.0, 6.0
         );
 
     _assert(!matrix_eq(A, B));
@@ -122,14 +122,14 @@ test_eq() {
     matrix_free(B);
 
     A = matrix_create_va(3, 3,
-        1, 2, 3,
-        4, 5, 6,
-        7, 8, 9
+        1.0, 2.0, 3.0,
+        4.0, 5.0, 6.0,
+        7.0, 8.0, 9.0
         );
     B = matrix_create_va(3, 3,
-        1, 2, 3,
-        4, 5, 6,
-        7, 8, 9
+        1.0, 2.0, 3.0,
+        4.0, 5.0, 6.0,
+        7.0, 8.0, 9.0
         );
 
     _assert(matrix_eq);
@@ -142,20 +142,20 @@ test_eq() {
 int
 test_mult() {
     matrix *A = matrix_create_va(2, 3,
-        1, 2, 3,
-        4, 5, 6
+        1.0, 2.0, 3.0,
+        4.0, 5.0, 6.0
         );
 
     matrix *B = matrix_create_va(3, 2,
-        1, 2,
-        3, 4,
-        5, 6
+        1.0, 2.0,
+        3.0, 4.0,
+        5.0, 6.0
         );
 
     matrix *C = matrix_mult(A, B);
     matrix *E = matrix_create_va(2, 2,
-        22, 28,
-        49, 64
+        22.0, 28.0,
+        49.0, 64.0
         );
 
     _assert(matrix_eq(C, E));

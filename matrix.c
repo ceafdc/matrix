@@ -24,7 +24,7 @@ matrix_create_va(int m, int n, ...) {
         va_start(ap, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                M->data[i][j] = va_arg(ap, int);
+                M->data[i][j] = va_arg(ap, double);
             }
         }
 
