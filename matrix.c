@@ -19,33 +19,36 @@ init_data(int m, int n) {
 matrix *
 matrix_create_va(int m, int n, ...) {
     va_list ap;
-    matrix *M = matrix_create_empty(m, n);
-
-    va_start(ap, n);
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            M->data[i][j] = va_arg(ap, int);
+    matrix *M = NULL;
+    if ((M = matrix_create_empty(m, n))) {
+        va_start(ap, n);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                M->data[i][j] = va_arg(ap, int);
+            }
         }
-    }
 
-    va_end(ap);
+        va_end(ap);
+    }
     return M;
 }
 
 matrix *
 matrix_create_zeros(int m, int n) {
-    matrix *M = matrix_create_empty(m, n);
-
-    matrix_fill(M, 0);
+    matrix *M = NULL;
+    if ((M = matrix_create_empty(m, n))) {
+        matrix_fill(M, 0);
+    }
 
     return M;
 }
 
 matrix *
 matrix_create_ones(int m, int n) {
-    matrix *M = matrix_create_empty(m, n);
-
-    matrix_fill(M, 1);
+    matrix *M = NULL;
+    if ((M = matrix_create_empty(m, n))) {
+        matrix_fill(M, 1);
+    }
 
     return M;
 }
@@ -82,6 +85,9 @@ matrix_map(matrix *A, double (*f)(double)) {
 
 matrix *
 matrix_create_empty(int m, int n) {
+    if (m <= 0 || n <= 0) {
+        return NULL;
+    }
     matrix *M = (matrix *)malloc(sizeof(matrix));
     matrix s = (matrix){NULL, m, n};
     memcpy(M, &s, sizeof(matrix));
