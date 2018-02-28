@@ -13,7 +13,11 @@ matrix *matrix_create_va(int m, int n, ...);
 matrix *matrix_create_zeros(int m, int n);
 matrix *matrix_create_ones(int m, int n);
 matrix *matrix_mult(matrix *A, matrix *B);
+matrix *matrix_add(matrix *A, matrix *B);
 matrix *matrix_copy(matrix *A);
+
+int matrix_same_order(matrix *A, matrix *B);
+int matrix_can_mult(matrix *A, matrix *B);
 
 void matrix_map(matrix *A, double (*f)(double));
 void matrix_fill(matrix *A, double v);

@@ -113,6 +113,22 @@ matrix_is_square(matrix *A) {
 }
 
 matrix *
+matrix_add(matrix *A, matrix *B) {
+    if (!matrix_same_order(A, B)) {
+        return NULL;
+    }
+
+    matrix *C = matrix_create_empty(A->m, A->n);
+    for (int i = 0; i < C->m; i++) {
+        for (int j = 0; j < C->n; j++) {
+            C->data[i][j] = A->data[i][j] + B->data[i][j];
+        }
+    }
+
+    return C;
+}
+
+matrix *
 matrix_mult(matrix *A, matrix *B) {
     if (!matrix_can_mult(A, B)) {
         return NULL;
