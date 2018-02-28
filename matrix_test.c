@@ -274,6 +274,10 @@ int test_transpose() {
 
     _assert(matrix_eq(T, E));
 
+    matrix_free(A);
+    matrix_free(T);
+    matrix_free(E);
+
     return 0;
 }
 
