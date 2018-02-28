@@ -189,5 +189,5 @@ main(int argc, char *argv[]) {
         printf("PASSED\n");
     printf("Tests run: %d\n", tests_run);
 
-    return make_tests();
+    return result;
 }
