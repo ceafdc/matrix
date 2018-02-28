@@ -75,7 +75,7 @@ matrix_mult(matrix *A, matrix *B) {
         return NULL;
     }
 
-    matrix *C = matrix_create_empty(A->m, B->n);
+    matrix *C = matrix_create_zeros(A->m, B->n);
     for (int i = 0; i < C->m; i++) {
         for (int j = 0; j < C->n; j++) {
             for (int k = 0; k < A->n; k++) {
