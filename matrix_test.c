@@ -24,6 +24,7 @@ test_fill() {
     }
 
     matrix_free(A);
+
     return 0;
 }
 
@@ -46,6 +47,7 @@ int test_copy() {
 
     matrix_free(A);
     matrix_free(B);
+
     return 0;
 }
 
