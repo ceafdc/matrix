@@ -49,6 +49,18 @@ matrix_create_ones(int m, int n) {
     return M;
 }
 
+matrix *
+matrix_copy(matrix *A) {
+    matrix *B = matrix_create_empty(A->m, A->n);
+    for (int i = 0; i < B->m; i++) {
+        for (int j = 0; j < B->n; j++) {
+            B->data[i][j] = A->data[i][j];
+        }
+    }
+
+    return B;
+}
+
 void
 matrix_fill(matrix *A, double v) {
     for (int i = 0; i < A->m; i++) {
