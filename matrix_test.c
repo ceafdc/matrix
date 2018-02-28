@@ -212,6 +212,13 @@ test_mult() {
     matrix_free(C);
     matrix_free(E);
 
+    A = matrix_create_empty(3, 4);
+    B = matrix_create_empty(3, 4);
+    _assert(matrix_mult(A, B) == NULL);
+
+    matrix_free(A);
+    matrix_free(B);
+
     return 0;
 }
 
