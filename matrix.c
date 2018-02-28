@@ -17,7 +17,7 @@
      _a < _b ? _a : _b; })
 
 double **
-init_data(int m, int n) {
+init_data(unsigned int m, unsigned int n) {
     double **data = (double **)malloc(sizeof(double *) * m);
     for (int i = 0; i < m; i++) {
         data[i] = (double *)malloc(sizeof(double) * n);
@@ -27,10 +27,7 @@ init_data(int m, int n) {
 }
 
 matrix *
-matrix_create_empty(int m, int n) {
-    if (m <= 0 || n <= 0) {
-        return NULL;
-    }
+matrix_create_empty(unsigned int m, unsigned int n) {
     matrix *M = (matrix *)malloc(sizeof(matrix));
     matrix s = (matrix){NULL, m, n};
     memcpy(M, &s, sizeof(matrix));
@@ -41,13 +38,13 @@ matrix_create_empty(int m, int n) {
 }
 
 matrix *
-matrix_create_va(int m, int n, ...) {
+matrix_create_va(unsigned int m, unsigned int n, ...) {
     va_list ap;
     matrix *M = NULL;
     if ((M = matrix_create_empty(m, n))) {
         va_start(ap, n);
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (unsigned int i = 0; i < m; i++) {
+            for (unsigned int j = 0; j < n; j++) {
                 M->data[i][j] = va_arg(ap, double);
             }
         }
@@ -58,7 +55,7 @@ matrix_create_va(int m, int n, ...) {
 }
 
 matrix *
-matrix_create_zeros(int m, int n) {
+matrix_create_zeros(unsigned int m, unsigned int n) {
     matrix *M = NULL;
     if ((M = matrix_create_empty(m, n))) {
         matrix_fill(M, 0);
@@ -68,7 +65,7 @@ matrix_create_zeros(int m, int n) {
 }
 
 matrix *
-matrix_create_ones(int m, int n) {
+matrix_create_ones(unsigned int m, unsigned int n) {
     matrix *M = NULL;
     if ((M = matrix_create_empty(m, n))) {
         matrix_fill(M, 1);
@@ -199,7 +196,7 @@ matrix_diagonal(const matrix *A) {
 }
 
 matrix *
-matrix_row(const matrix *A, int r) {
+matrix_row(const matrix *A, unsigned int r) {
     matrix *row = matrix_create_empty(1, A->n);
 
     for (int i = 0; i < A->n; i++) {
@@ -210,7 +207,7 @@ matrix_row(const matrix *A, int r) {
 }
 
 matrix *
-matrix_col(const matrix *A, int c) {
+matrix_col(const matrix *A, unsigned int c) {
     matrix *col = matrix_create_empty(A->m, 1);
 
     for (int i = 0; i < A->m; i++) {

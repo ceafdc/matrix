@@ -4,16 +4,16 @@
 typedef struct
 {
     double **data;
-    const int m; // #rows
-    const int n; // #cols
+    const unsigned int m; // #rows
+    const unsigned int n; // #cols
 } matrix;
 
 
 // Initialization
-matrix *matrix_create_empty(int m, int n);
-matrix *matrix_create_va(int m, int n, ...);
-matrix *matrix_create_zeros(int m, int n);
-matrix *matrix_create_ones(int m, int n);
+matrix *matrix_create_empty(unsigned int m, unsigned int n);
+matrix *matrix_create_va(unsigned int m, unsigned int n, ...);
+matrix *matrix_create_zeros(unsigned int m, unsigned int n);
+matrix *matrix_create_ones(unsigned int m, unsigned int n);
 matrix *matrix_copy(const matrix *A);
 
 // Arithmetic
@@ -35,8 +35,8 @@ int matrix_eq(const matrix *A, const matrix *B);
 // Matrix stuff
 matrix *matrix_transpose(const matrix *A);
 matrix *matrix_diagonal(const matrix *A);
-matrix *matrix_row(const matrix *A, int r);
-matrix *matrix_col(const matrix *A, int c);
+matrix *matrix_row(const matrix *A, unsigned int r);
+matrix *matrix_col(const matrix *A, unsigned int c);
 
 // Functional
 void matrix_map(matrix *A, double (*f)(double));
