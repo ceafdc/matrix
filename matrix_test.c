@@ -283,6 +283,8 @@ int test_transpose() {
     return 0;
 }
 
+int
+    matrix *E = matrix_create_va(1, 2,
 
 int
 make_tests() {
