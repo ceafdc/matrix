@@ -192,10 +192,52 @@ test_mult() {
     return 0;
 }
 
+int
+test_mult_scalar() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+    double scalar = -1;
+    matrix *B = matrix_mult_scalar(A, scalar);
+
+    matrix *E = matrix_create_va(3, 2,
+        -12.0, -24.0,
+        31.0, 24.0,
+        -3.1415, 999.0
+        );
+    _assert(matrix_eq(B, E));
+
+    return 0;
+}
+
+int
+test_mult_scalar_inplace() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+    double scalar = -1;
+    matrix_mult_scalar_inplace(A, scalar);
+
+    matrix *E = matrix_create_va(3, 2,
+        -12.0, -24.0,
+        31.0, 24.0,
+        -3.1415, 999.0
+        );
+    _assert(matrix_eq(A, E));
+
+    return 0;
+}
+
 
 int
 make_tests() {
     _verify(test_eq);
+    _verify(test_mult_scalar);
+    _verify(test_mult_scalar_inplace);
     _verify(test_mult);
     _verify(test_add);
     _verify(test_zeros_and_ones);

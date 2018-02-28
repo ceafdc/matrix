@@ -128,6 +128,23 @@ matrix_add(const matrix *A, const matrix *B) {
     return C;
 }
 
+void
+matrix_mult_scalar_inplace(matrix *A, double scalar) {
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] *= scalar;
+        }
+    }
+}
+
+matrix *
+matrix_mult_scalar(const matrix *A, double scalar) {
+    matrix *B = matrix_copy(A);
+    matrix_mult_scalar_inplace(B, scalar);
+
+    return B;
+}
+
 matrix *
 matrix_mult(const matrix *A, const matrix *B) {
     if (!matrix_can_mult(A, B)) {
