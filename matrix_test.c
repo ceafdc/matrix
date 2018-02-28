@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <float.h>
 #include "matrix.h"
 
 #define FAIL() printf("\nfailure in %s() line %d\n", __func__, __LINE__)
@@ -42,6 +43,37 @@ int test_copy() {
             _assert(A->data[i][j] == B->data[i][j]);
         }
     }
+
+    matrix_free(A);
+    matrix_free(B);
+    return 0;
+}
+
+double
+f(double v) {
+    return v * v;
+}
+
+int
+test_map() {
+    matrix *A = matrix_create_empty(19, 37);
+
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j< A->n; j++) {
+            A->data[i][j] = 10 * ((float)rand()/(float)RAND_MAX);
+        }
+    }
+
+    matrix *B = matrix_copy(A);
+    matrix_map(A, f);
+
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j< A->n; j++) {
+            B->data[i][j] = f(B->data[i][j]);
+        }
+    }
+
+    _assert(matrix_eq(A, B));
 
     matrix_free(A);
     matrix_free(B);
@@ -143,6 +175,7 @@ make_tests() {
     _verify(test_mult);
     _verify(test_zeros_and_ones);
     _verify(test_fill);
+    _verify(test_map);
     _verify(test_copy);
     return 0;
 }
