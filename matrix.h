@@ -24,6 +24,7 @@ matrix *matrix_mult(const matrix *A, const matrix *B);
 
 // Inplace arithmetic
 void matrix_mult_scalar_inplace(matrix *A, double scalar);
+void matrix_add_inplace(matrix *A, const matrix *B); // ads to A
 
 
 // Helpers

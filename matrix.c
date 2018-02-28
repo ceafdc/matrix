@@ -4,6 +4,7 @@
 #include <float.h>
 #include <math.h>
 #include <string.h>
+#include <assert.h>
 #include "matrix.h"
 
 #define MAX(a,b) \
@@ -100,12 +101,8 @@ matrix_add(const matrix *A, const matrix *B) {
         return NULL;
     }
 
-    matrix *C = matrix_create_empty(A->m, A->n);
-    for (int i = 0; i < C->m; i++) {
-        for (int j = 0; j < C->n; j++) {
-            C->data[i][j] = A->data[i][j] + B->data[i][j];
-        }
-    }
+    matrix *C = matrix_copy(A);
+    matrix_add_inplace(C, B);
 
     return C;
 }
@@ -132,6 +129,20 @@ matrix_mult_scalar_inplace(matrix *A, double scalar) {
     for (int i = 0; i < A->m; i++) {
         for (int j = 0; j < A->n; j++) {
             A->data[i][j] *= scalar;
+        }
+    }
+}
+
+void
+matrix_add_inplace(matrix *A, const matrix *B) {
+    assert(matrix_same_order(A, B));
+    if (!matrix_same_order(A, B)) {
+        return;
+    }
+
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] += B->data[i][j];
         }
     }
 }
