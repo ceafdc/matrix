@@ -97,6 +97,21 @@ matrix_create_empty(int m, int n) {
     return M;
 }
 
+int
+matrix_same_order(matrix *A, matrix *B) {
+    return A->m == B->m && A->n == B->n;
+}
+
+int
+matrix_can_mult(matrix *A, matrix *B) {
+    return A->n == B->m;
+}
+
+int
+matrix_is_square(matrix *A) {
+    return A->m == A->n;
+}
+
 matrix *
 matrix_mult(matrix *A, matrix *B) {
     if (A->n != B->m) {
