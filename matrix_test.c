@@ -176,6 +176,11 @@ test_add() {
         );
     _assert(matrix_eq(C, E));
 
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(C);
+    matrix_free(E);
+
     return 0;
 }
 
@@ -225,6 +230,10 @@ test_mult_scalar() {
         );
     _assert(matrix_eq(B, E));
 
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(E);
+
     return 0;
 }
 
@@ -244,6 +253,9 @@ test_mult_scalar_inplace() {
         -3.1415, 999.0
         );
     _assert(matrix_eq(A, E));
+
+    matrix_free(A);
+    matrix_free(E);
 
     return 0;
 }
