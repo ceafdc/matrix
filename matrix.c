@@ -164,6 +164,18 @@ matrix_eq(const matrix *A, const matrix *B) {
     return 1;
 }
 
+matrix *
+matrix_transpose(const matrix *A) {
+    matrix *T = matrix_create_empty(A->n, A->m);
+    for (int i = 0; i < T->m; i++) {
+        for (int j = 0; j < T->n; j++) {
+            T->data[i][j] = A->data[j][i];
+        }
+    }
+
+    return T;
+}
+
 void
 matrix_map(matrix *A, double (*f)(double)) {
     for (int i = 0; i < A->m; i++) {

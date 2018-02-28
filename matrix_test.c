@@ -232,6 +232,23 @@ test_mult_scalar_inplace() {
     return 0;
 }
 
+int test_transpose() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+    matrix *T = matrix_transpose(A);
+    matrix *E = matrix_create_va(2, 3,
+         12.0, -31.0, 3.1415,
+         24.0, -24.0, -999.0
+        );
+
+    _assert(matrix_eq(T, E));
+
+    return 0;
+}
+
 
 int
 make_tests() {
@@ -242,6 +259,7 @@ make_tests() {
     _verify(test_add);
     _verify(test_zeros_and_ones);
     _verify(test_fill);
+    _verify(test_transpose);
     _verify(test_map);
     _verify(test_copy);
     return 0;

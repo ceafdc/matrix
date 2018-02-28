@@ -32,6 +32,9 @@ int matrix_can_mult(const matrix *A, const matrix *B);
 int matrix_is_square(const matrix *A);
 int matrix_eq(const matrix *A, const matrix *B);
 
+// Matrix stuff
+matrix *matrix_transpose(const matrix *A);
+
 // Functional
 void matrix_map(matrix *A, double (*f)(double));
 void matrix_fill(matrix *A, double v);
