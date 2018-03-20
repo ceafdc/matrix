@@ -256,6 +256,14 @@ matrix_minor(const matrix *A, int i, int j) {
     matrix_free(B);
     return retVal;
 }
+
+double
+matrix_cofactor(const matrix *A, int i, int j) {
+    double minor = matrix_minor(A, i, j);
+    int isEven = ((i + j) % 2 == 0);
+    double multiplier = isEven ? 1.0 : -1.0;
+    return  multiplier * minor;
+}
 void
 matrix_map(matrix *A, double (*f)(double)) {
     for (int i = 0; i < A->m; i++) {
