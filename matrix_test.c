@@ -12,6 +12,50 @@
 int tests_run = 0;
 
 int
+test_minor() {
+    matrix *A;
+    double minor;
+    double expected;
+
+    A = matrix_create_va(2, 2,
+        1.0, 2.0,
+        3.0, 4.0
+        );
+    minor = matrix_minor(A, 0, 0);
+    expected = 4.0;
+    _assert(fabs(minor - expected) <= DBL_EPSILON);
+    matrix_free(A);
+
+    A = matrix_create_va(3, 3,
+        1.0, 2.0, 66.0,
+        3.0, 4.0, 22.1,
+        -3.14, 3.14, 142.0
+        );
+    minor = matrix_minor(A, 1, 2);
+    expected = 9.42;
+    _assert(fabs(minor - expected) <= DBL_EPSILON);
+
+    minor = matrix_minor(A, 2, 2);
+    expected = -2;
+    _assert(fabs(minor - expected) <= DBL_EPSILON);
+    matrix_free(A);
+
+    A = matrix_create_va(5, 5,
+         3.0, -7.0, -6.0,  7.0,  9.0,
+         8.0,  2.0,  9.0, -9.0, -7.0,
+         4.0, -1.0,  8.0,  0.0,  8.0,
+         7.0,  7.0,  0.0, -6.0, -6.0,
+         3.0,  2.0, -3.0,  8.0, -5.0
+        );
+
+    minor = matrix_minor(A, 3, 2);
+    expected = -6933;
+    _assert(fabs(minor - expected) <= DBL_EPSILON);
+    matrix_free(A);
+    return 0;
+}
+
+int
 test_fill() {
     matrix *A = matrix_create_empty(1000, 100);
     double value = 3.1415926535;
