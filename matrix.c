@@ -264,6 +264,81 @@ matrix_cofactor(const matrix *A, int i, int j) {
     double multiplier = isEven ? 1.0 : -1.0;
     return  multiplier * minor;
 }
+
+double
+matrix_determinant_1(const matrix *A) {
+    return A->data[0][0];
+}
+
+double
+matrix_determinant_2(const matrix *A) {
+    double a = A->data[0][0];
+    double b = A->data[0][1];
+    double c = A->data[1][0];
+    double d = A->data[1][1];
+    return a * d - b * c;
+}
+
+double
+matrix_determinant_3(const matrix *A) {
+    double a = A->data[0][0];
+    double b = A->data[0][1];
+    double c = A->data[0][2];
+    double d = A->data[1][0];
+    double e = A->data[1][1];
+    double f = A->data[1][2];
+    double g = A->data[2][0];
+    double h = A->data[2][1];
+    double i = A->data[2][2];
+    return (
+          a * e * i
+        + b * f * g
+        + c * d * h
+        - c * e * g
+        - b * d * i
+        - a * f * h
+        );
+}
+
+double
+matrix_determinant_smaller_cases(const matrix *A) {
+    if (A->n == 1) {
+        return matrix_determinant_1(A);
+    } else if (A->n == 2) {
+        return matrix_determinant_2(A);
+    } else if (A->n == 3) {
+        return matrix_determinant_3(A);
+    }
+    return 0;
+}
+
+double matrix_determinant_n(const matrix *A) {
+    if (A->n <= 3) {
+        return matrix_determinant_smaller_cases(A);
+    }
+
+    double acc = 0;
+    int j = 0;
+    for (int i = 0; i < A->n; i++) {
+        double v = A->data[i][j];
+        if (v == 0) {
+            continue;
+        }
+
+        acc += v * matrix_cofactor(A, i, j);
+    }
+    return acc;
+}
+
+double
+matrix_determinant(const matrix *A) {
+    if (!matrix_is_square(A)) {
+        return 0;
+    }
+
+    return matrix_determinant_n(A);
+}
+
 void
 matrix_map(matrix *A, double (*f)(double)) {
     for (int i = 0; i < A->m; i++) {

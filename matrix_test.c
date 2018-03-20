@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <float.h>
+#include <math.h>
 #include "matrix.h"
 
 #define FAIL() printf("\nfailure in %s() line %d\n", __func__, __LINE__)
@@ -10,6 +11,56 @@
 #define _verify(test) do { int r=test(); tests_run++; if(r) return r; } while(0)
 
 int tests_run = 0;
+
+int
+test_determinant() {
+    matrix *A;
+    double determinant;
+    double expected;
+    A = matrix_create_va(1, 1,
+        3.0);
+    determinant = matrix_determinant(A);
+    expected = 3;
+    _assert(fabs(determinant - expected) <= DBL_EPSILON);
+    matrix_free(A);
+
+
+    A = matrix_create_va(2, 2,
+        3.0, -4.0,
+        -1.1, -9.0
+        );
+    determinant = matrix_determinant(A);
+    expected = -31.4;
+    _assert(fabs(determinant - expected) <= DBL_EPSILON);
+    matrix_free(A);
+
+    A = matrix_create_va(3, 3,
+        3.0, -4.0, -666.0,
+        -1.1, -9.0, -999.0,
+        3.14, -6.8, 0.0
+        );
+    determinant = matrix_determinant(A);
+    expected = -31635;
+    _assert(fabs(determinant - expected) <= DBL_EPSILON);
+    matrix_free(A);
+
+
+    A = matrix_create_va(5, 5,
+         3.0, -7.0, -6.0,  7.0,  9.0,
+         8.0,  2.0,  9.0, -9.0, -7.0,
+         4.0, -1.0,  8.0,  0.0,  8.0,
+         7.0,  7.0,  0.0, -6.0, -6.0,
+         3.0,  2.0, -3.0,  8.0, -5.0
+        );
+
+    determinant = matrix_determinant(A);
+    expected = -108695;
+    _assert(fabs(determinant - expected) <= DBL_EPSILON);
+
+    matrix_free(A);
+
+    return 0;
+}
 
 int
 test_cofactor() {
@@ -486,6 +537,7 @@ make_tests() {
         test_col,
         test_minor,
         test_cofactor,
+        test_determinant,
         NULL
     };
 

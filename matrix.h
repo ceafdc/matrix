@@ -40,6 +40,7 @@ matrix *matrix_row(const matrix *A, unsigned int r);
 matrix *matrix_col(const matrix *A, unsigned int c);
 double matrix_minor(const matrix *A, int i, int j);
 double matrix_cofactor(const matrix *A, int i, int j);
+double matrix_determinant(const matrix *A);
 
 // Functional
 void matrix_map(matrix *A, double (*f)(double));
