@@ -182,6 +182,11 @@ matrix_eq(const matrix *A, const matrix *B) {
     return 1;
 }
 
+int
+matrix_is_singular(const matrix *A) {
+    return fabs(matrix_determinant(A)) <= DBL_EPSILON;
+}
+
 matrix *
 matrix_transpose(const matrix *A) {
     matrix *T = matrix_create_empty(A->n, A->m);

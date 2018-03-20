@@ -32,6 +32,7 @@ int matrix_same_order(const matrix *A, const matrix *B);
 int matrix_can_mult(const matrix *A, const matrix *B);
 int matrix_is_square(const matrix *A);
 int matrix_eq(const matrix *A, const matrix *B);
+int matrix_is_singular(const matrix *A);
 
 // Matrix stuff
 matrix *matrix_transpose(const matrix *A);
