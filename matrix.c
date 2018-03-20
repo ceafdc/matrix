@@ -228,6 +228,34 @@ matrix_col(const matrix *A, unsigned int c) {
     return col;
 }
 
+double
+matrix_minor(const matrix *A, int i, int j) {
+    if (!matrix_is_square(A)
+        || A->n <= 1
+        || i >= A->m
+        || j >= A->n) {
+        return 0;
+    }
+    matrix *B = matrix_create_empty(A->m - 1, A->n - 1);
+
+    for (int ai = 0, bi = 0; ai < A->m; ai++) {
+        if (ai == i) {
+            continue;
+        }
+        for (int aj = 0, bj = 0; aj < A->n; aj++) {
+            if (aj == j) {
+                continue;
+            }
+            B->data[bi][bj] = A->data[ai][aj];
+            bj++;
+        }
+        bi++;
+    }
+
+    double retVal = matrix_determinant(B);
+    matrix_free(B);
+    return retVal;
+}
 void
 matrix_map(matrix *A, double (*f)(double)) {
     for (int i = 0; i < A->m; i++) {
