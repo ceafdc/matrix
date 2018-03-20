@@ -344,6 +344,50 @@ matrix_determinant(const matrix *A) {
     return matrix_determinant_n(A);
 }
 
+matrix *
+matrix_delete_col(const matrix *A, unsigned int col) {
+    if (col >= A->n) {
+        return NULL;
+    }
+
+    matrix *B = matrix_create_empty(A->m, A->n - 1);
+
+    for (int ai = 0, bi = 0; ai < A->m; ai++) {
+        for (int aj = 0, bj = 0; aj < A->n; aj++) {
+            if (aj == col) {
+                continue;
+            }
+            B->data[bi][bj] = A->data[ai][aj];
+            bj++;
+        }
+        bi++;
+    }
+
+    return B;
+}
+
+matrix *
+matrix_delete_row(const matrix *A, unsigned int row) {
+    if (row >= A->m) {
+        return NULL;
+    }
+
+    matrix *B = matrix_create_empty(A->m - 1, A->n);
+
+    for (int ai = 0, bi = 0; ai < A->m; ai++) {
+        if (ai == row) {
+                continue;
+            }
+        for (int aj = 0, bj = 0; aj < A->n; aj++) {
+            B->data[bi][bj] = A->data[ai][aj];
+            bj++;
+        }
+        bi++;
+    }
+
+    return B;
+}
+
 void
 matrix_swap_col_inplace(matrix *A, unsigned int c1, unsigned int c2) {
     if (c1 >= A->n || c2 >= A->n || c1 == c2) {

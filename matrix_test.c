@@ -13,6 +13,53 @@
 int tests_run = 0;
 
 int
+test_delete() {
+    matrix *A, *B, *C;
+    A = matrix_create_va(5, 5,
+         3.0, -7.0, -6.0,  7.0,  9.0,
+         8.0,  2.0,  9.0, -9.0, -7.0,
+         4.0, -1.0,  8.0,  0.0,  8.0,
+         7.0,  7.0,  0.0, -6.0, -6.0,
+         3.0,  2.0, -3.0,  8.0, -5.0
+        );
+    _assert(matrix_delete_col(A, 10) == NULL);
+    B = matrix_delete_col(A, 2);
+    C = matrix_create_va(5, 4,
+         3.0, -7.0,  7.0,  9.0,
+         8.0,  2.0, -9.0, -7.0,
+         4.0, -1.0,  0.0,  8.0,
+         7.0,  7.0, -6.0, -6.0,
+         3.0,  2.0,  8.0, -5.0
+        );
+    _assert(matrix_eq(B, C));
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(C);
+
+    A = matrix_create_va(5, 5,
+         3.0, -7.0, -6.0,  7.0,  9.0,
+         8.0,  2.0,  9.0, -9.0, -7.0,
+         4.0, -1.0,  8.0,  0.0,  8.0,
+         7.0,  7.0,  0.0, -6.0, -6.0,
+         3.0,  2.0, -3.0,  8.0, -5.0
+        );
+    _assert(matrix_delete_row(A, 10) == NULL);
+    B = matrix_delete_row(A, 2);
+    C = matrix_create_va(4, 5,
+         3.0, -7.0, -6.0,  7.0,  9.0,
+         8.0,  2.0,  9.0, -9.0, -7.0,
+         7.0,  7.0,  0.0, -6.0, -6.0,
+         3.0,  2.0, -3.0,  8.0, -5.0
+        );
+    _assert(matrix_eq(B, C));
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(C);
+
+    return 0;
+}
+
+int
 test_swap() {
     matrix *A, *B, *C;
 
@@ -617,6 +664,7 @@ make_tests() {
         test_row,
         test_col,
         test_minor,
+        test_delete,
         test_cofactor,
         test_determinant,
         test_singular,

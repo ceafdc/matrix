@@ -45,6 +45,8 @@ double matrix_minor(const matrix *A, int i, int j);
 double matrix_cofactor(const matrix *A, int i, int j);
 double matrix_determinant(const matrix *A);
 
+matrix *matrix_delete_col(const matrix *A, unsigned int col);
+matrix *matrix_delete_row(const matrix *A, unsigned int row);
 void matrix_swap_col_inplace(matrix *A, unsigned int c1, unsigned int c2);
 void matrix_swap_row_inplace(matrix *A, unsigned int r1, unsigned int r2);
 
