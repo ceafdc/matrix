@@ -241,24 +241,12 @@ matrix_minor(const matrix *A, int i, int j) {
         || j >= A->n) {
         return 0;
     }
-    matrix *B = matrix_create_empty(A->m - 1, A->n - 1);
+    matrix *B = matrix_delete_row(A, i);
+    matrix *C = matrix_delete_col(B, j);
 
-    for (int ai = 0, bi = 0; ai < A->m; ai++) {
-        if (ai == i) {
-            continue;
-        }
-        for (int aj = 0, bj = 0; aj < A->n; aj++) {
-            if (aj == j) {
-                continue;
-            }
-            B->data[bi][bj] = A->data[ai][aj];
-            bj++;
-        }
-        bi++;
-    }
-
-    double retVal = matrix_determinant(B);
+    double retVal = matrix_determinant(C);
     matrix_free(B);
+    matrix_free(C);
     return retVal;
 }
 
