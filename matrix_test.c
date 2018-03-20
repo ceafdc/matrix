@@ -44,7 +44,6 @@ test_determinant() {
     _assert(fabs(determinant - expected) <= DBL_EPSILON);
     matrix_free(A);
 
-
     A = matrix_create_va(5, 5,
          3.0, -7.0, -6.0,  7.0,  9.0,
          8.0,  2.0,  9.0, -9.0, -7.0,
@@ -56,7 +55,19 @@ test_determinant() {
     determinant = matrix_determinant(A);
     expected = -108695;
     _assert(fabs(determinant - expected) <= DBL_EPSILON);
+    matrix_free(A);
 
+    A = matrix_create_va(5, 5,
+         3.0, -7.0, -6.0, -7.0,  9.0,
+         8.0,  2.0,  9.0,  2.0, -7.0,
+         4.0, -1.0,  8.0, -1.0,  8.0,
+         7.0,  7.0,  0.0,  7.0, -6.0,
+         3.0,  2.0, -3.0,  2.0, -5.0
+        );
+
+    determinant = matrix_determinant(A);
+    expected = 0;
+    _assert(fabs(determinant - expected) <= DBL_EPSILON);
     matrix_free(A);
 
     return 0;
