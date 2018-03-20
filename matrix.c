@@ -345,7 +345,7 @@ matrix_determinant(const matrix *A) {
 }
 
 void
-matrix_swap_col_inplace(const matrix *A, unsigned int c1, unsigned int c2) {
+matrix_swap_col_inplace(matrix *A, unsigned int c1, unsigned int c2) {
     if (c1 >= A->n || c2 >= A->n || c1 == c2) {
         return;
     }
@@ -358,7 +358,7 @@ matrix_swap_col_inplace(const matrix *A, unsigned int c1, unsigned int c2) {
 }
 
 void
-matrix_swap_row_inplace(const matrix *A, unsigned int r1, unsigned int r2) {
+matrix_swap_row_inplace(matrix *A, unsigned int r1, unsigned int r2) {
     if (r1 >= A->m || r2 >= A->m || r1 == r2) {
         return;
     }
