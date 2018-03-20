@@ -41,8 +41,8 @@ matrix *matrix_transpose(const matrix *A);
 matrix *matrix_diagonal(const matrix *A);
 matrix *matrix_row(const matrix *A, unsigned int r);
 matrix *matrix_col(const matrix *A, unsigned int c);
-double matrix_minor(const matrix *A, int i, int j);
-double matrix_cofactor(const matrix *A, int i, int j);
+double matrix_minor(const matrix *A, unsigned int i, unsigned int j);
+double matrix_cofactor(const matrix *A, unsigned int i, unsigned int j);
 double matrix_determinant(const matrix *A);
 
 matrix *matrix_delete_col(const matrix *A, unsigned int col);

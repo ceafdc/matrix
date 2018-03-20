@@ -234,7 +234,7 @@ matrix_col(const matrix *A, unsigned int c) {
 }
 
 double
-matrix_minor(const matrix *A, int i, int j) {
+matrix_minor(const matrix *A, unsigned int i, unsigned int j) {
     if (!matrix_is_square(A)
         || A->n <= 1
         || i >= A->m
@@ -251,7 +251,7 @@ matrix_minor(const matrix *A, int i, int j) {
 }
 
 double
-matrix_cofactor(const matrix *A, int i, int j) {
+matrix_cofactor(const matrix *A, unsigned int i, unsigned int j) {
     double minor = matrix_minor(A, i, j);
     int isEven = ((i + j) % 2 == 0);
     double multiplier = isEven ? 1.0 : -1.0;
