@@ -440,6 +440,7 @@ make_tests() {
         test_diagonal,
         test_row,
         test_col,
+        test_minor,
         NULL
     };
 
