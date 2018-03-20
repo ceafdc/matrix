@@ -570,6 +570,8 @@ test_row() {
     _assert(matrix_eq(row, E));
 
     matrix_free(A);
+    matrix_free(row);
+    matrix_free(E);
     return 0;
 }
 
@@ -591,6 +593,8 @@ test_col() {
     _assert(matrix_eq(col, E));
 
     matrix_free(A);
+    matrix_free(col);
+    matrix_free(E);
     return 0;
 }
 
