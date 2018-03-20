@@ -13,6 +13,47 @@
 int tests_run = 0;
 
 int
+test_swap() {
+    matrix *A, *B, *C;
+
+    A = matrix_create_va(5, 5,
+         3.0, -7.0, -6.0,  7.0,  9.0,
+         8.0,  2.0,  9.0, -9.0, -7.0,
+         4.0, -1.0,  8.0,  0.0,  8.0,
+         7.0,  7.0,  0.0, -6.0, -6.0,
+         3.0,  2.0, -3.0,  8.0, -5.0
+        );
+    B = matrix_copy(A);
+    matrix_swap_col_inplace(B, 9, 10);  // test columns greater than matrix size
+    _assert(matrix_eq(A, B));
+
+    matrix_swap_col_inplace(B, 0, 2);  // test columns greater than matrix size
+    C = matrix_create_va(5, 5,
+         -6.0, -7.0, 3.0,  7.0,  9.0,
+          9.0,  2.0, 8.0, -9.0, -7.0,
+          8.0, -1.0, 4.0,  0.0,  8.0,
+          0.0,  7.0, 7.0, -6.0, -6.0,
+         -3.0,  2.0, 3.0,  8.0, -5.0
+        );
+    _assert(matrix_eq(B, C));
+    matrix_free(C);
+    matrix_swap_row_inplace(B, 0, 2);
+    C = matrix_create_va(5, 5,
+          8.0, -1.0, 4.0,  0.0,  8.0,
+          9.0,  2.0, 8.0, -9.0, -7.0,
+          -6.0, -7.0, 3.0,  7.0,  9.0,
+          0.0,  7.0, 7.0, -6.0, -6.0,
+         -3.0,  2.0, 3.0,  8.0, -5.0
+        );
+
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(C);
+
+    return 0;
+}
+
+int
 test_determinant() {
     matrix *A;
     double determinant;
@@ -575,6 +616,7 @@ make_tests() {
         test_cofactor,
         test_determinant,
         test_singular,
+        test_swap,
         NULL
     };
 
