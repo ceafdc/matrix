@@ -295,14 +295,13 @@ matrix_determinant_3(const matrix *A) {
 
 double
 matrix_determinant_smaller_cases(const matrix *A) {
-    if (A->n == 1) {
-        return matrix_determinant_1(A);
-    } else if (A->n == 2) {
-        return matrix_determinant_2(A);
-    } else if (A->n == 3) {
-        return matrix_determinant_3(A);
+    double (*det)(const matrix *) = NULL;
+    switch (A->n) {
+        case 1: det = matrix_determinant_1; break;
+        case 2: det = matrix_determinant_2; break;
+        case 3: det = matrix_determinant_3; break;
     }
-    return 0;
+    return det(A);
 }
 
 double matrix_determinant_n(const matrix *A) {
