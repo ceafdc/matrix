@@ -423,7 +423,7 @@ void
 matrix_print(const matrix *M) {
     for (int i = 0; i < M->m; i++) {
         for (int j = 0; j < M->n; j++) {
-            printf("%lf ", M->data[i][j]);
+            printf("%lf\t", M->data[i][j]);
         }
         printf("\n");
     }
