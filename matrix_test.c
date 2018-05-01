@@ -704,6 +704,64 @@ test_col() {
 
 
 int
+test_norm_1() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+    double norm = matrix_norm_1(A);
+    double e = 1047.0;
+    _assert(fabs(norm - e) < DBL_EPSILON);
+
+    matrix_free(A);
+
+    A = matrix_create_va(5, 1,
+        4.0,
+        -3.0,
+        -1.0,
+        10.0,
+        -20.0
+        );
+    norm = matrix_norm_1(A);
+    e = 38;
+    _assert(fabs(norm - e) < DBL_EPSILON);
+
+    matrix_free(A);
+    return 0;
+}
+
+int
+test_norm_inf() {
+    matrix *A = matrix_create_va(3, 2,
+        12.0, 24.0,
+        -31.0, -24.0,
+        3.1415, -999.0
+        );
+    double norm = matrix_norm_inf(A);
+    double e = 1002.1415;
+    _assert(fabs(norm - e) < DBL_EPSILON);
+
+    matrix_free(A);
+
+    A = matrix_create_va(5, 1,
+        4.0,
+        -3.0,
+        -1.0,
+        10.0,
+        -20.0
+        );
+    norm = matrix_norm_inf(A);
+    e = 20;
+    _assert(fabs(norm - e) < DBL_EPSILON);
+
+    matrix_free(A);
+
+    return 0;
+}
+
+
+int
 make_tests() {
     int (*tests[])() = {
         test_eq,
@@ -728,6 +786,8 @@ make_tests() {
         test_determinant,
         test_singular,
         test_swap,
+        test_norm_1,
+        test_norm_inf,
         NULL
     };
 

@@ -357,6 +357,36 @@ matrix_determinant(const matrix *A) {
     return matrix_determinant_n(A);
 }
 
+double
+matrix_norm_1(const matrix *A) {
+    double max_sum = 0;
+    for (int j = 0; j < A->n; j++) {
+        double sum = 0;
+        for (int i = 0; i < A->m; i++) {
+            sum += fabs(A->data[i][j]);
+        }
+        if (sum > max_sum) {
+            max_sum = sum;
+        }
+    }
+    return max_sum;
+}
+
+double
+matrix_norm_inf(const matrix *A) {
+    double max_sum = 0;
+    for (int i = 0; i < A->m; i++) {
+        double sum = 0;
+        for (int j = 0; j < A->n; j++) {
+            sum += fabs(A->data[i][j]);
+        }
+        if (sum > max_sum) {
+            max_sum = sum;
+        }
+    }
+    return max_sum;
+}
+
 matrix *
 matrix_delete_col(const matrix *A, unsigned int col) {
     if (col >= A->n) {
