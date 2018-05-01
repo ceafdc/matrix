@@ -20,13 +20,14 @@ matrix *matrix_copy(const matrix *A);
 // Arithmetic
 matrix *matrix_mult_scalar(const matrix *A, double scalar);
 matrix *matrix_add(const matrix *A, const matrix *B);
+matrix *matrix_sub(const matrix *A, const matrix *B);
 matrix *matrix_mult(const matrix *A, const matrix *B);
 
 
 // Inplace arithmetic
 void matrix_mult_scalar_inplace(matrix *A, double scalar);
-void matrix_add_inplace(matrix *A, const matrix *B); // ads to A
-
+void matrix_add_inplace(matrix *A, const matrix *B); // ads B to A
+void matrix_sub_inplace(matrix *A, const matrix *B); // subs A -= B
 
 // Helpers
 int matrix_same_order(const matrix *A, const matrix *B);

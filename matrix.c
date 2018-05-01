@@ -108,6 +108,18 @@ matrix_add(const matrix *A, const matrix *B) {
 }
 
 matrix *
+matrix_sub(const matrix *A, const matrix *B) {
+    if (!matrix_same_order(A, B)) {
+        return NULL;
+    }
+
+    matrix *C = matrix_copy(A);
+    matrix_sub_inplace(C, B);
+
+    return C;
+}
+
+matrix *
 matrix_mult(const matrix *A, const matrix *B) {
     if (!matrix_can_mult(A, B)) {
         return NULL;
@@ -143,6 +155,20 @@ matrix_add_inplace(matrix *A, const matrix *B) {
     for (int i = 0; i < A->m; i++) {
         for (int j = 0; j < A->n; j++) {
             A->data[i][j] += B->data[i][j];
+        }
+    }
+}
+
+void
+matrix_sub_inplace(matrix *A, const matrix *B) {
+    assert(matrix_same_order(A, B));
+    if (!matrix_same_order(A, B)) {
+        return;
+    }
+
+    for (int i = 0; i < A->m; i++) {
+        for (int j = 0; j < A->n; j++) {
+            A->data[i][j] -= B->data[i][j];
         }
     }
 }

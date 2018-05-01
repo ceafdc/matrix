@@ -478,6 +478,63 @@ test_add_inplace() {
 }
 
 int
+test_sub() {
+    matrix *A = matrix_create_va(3, 4,
+        3.0, 13.0, 5.0, 2.0,
+        213.0, 13.0, 53.0, -12.0,
+        123.0, 3.14, 12.0, 42.0
+        );
+    matrix *B = matrix_create_va(3, 4,
+        31.0, 21.0, 5423.0, 102.0,
+        999.0, 1.0, 53.0, 12.0,
+        666.0, 6.28, 2.71828, -123.0
+        );
+
+    matrix *C = matrix_sub(A, B);
+    matrix *E = matrix_create_va(3, 4,
+    -2.80000e+01, -8.00000e+00, -5.41800e+03, -1.00000e+02,
+    -7.86000e+02,  12.0, 0.0, -2.40000e+01,
+    -5.43000e+02, -3.14000e+00,  9.28172e+00,  1.65000e+02
+        );
+    _assert(matrix_eq(C, E));
+
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(C);
+    matrix_free(E);
+
+    return 0;
+}
+
+int
+test_sub_inplace() {
+    matrix *A = matrix_create_va(3, 4,
+        3.0, 13.0, 5.0, 2.0,
+        213.0, 13.0, 53.0, -12.0,
+        123.0, 3.14, 12.0, 42.0
+        );
+    matrix *B = matrix_create_va(3, 4,
+        31.0, 21.0, 5423.0, 102.0,
+        999.0, 1.0, 53.0, 12.0,
+        666.0, 6.28, 2.71828, -123.0
+        );
+
+    matrix_sub_inplace(A, B);
+    matrix *E = matrix_create_va(3, 4,
+    -2.80000e+01, -8.00000e+00, -5.41800e+03, -1.00000e+02,
+    -7.86000e+02,  12.0, 0.0, -2.40000e+01,
+    -5.43000e+02, -3.14000e+00,  9.28172e+00,  1.65000e+02
+        );
+    _assert(matrix_eq(A, E));
+
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(E);
+
+    return 0;
+}
+
+int
 test_mult() {
     matrix *A = matrix_create_va(2, 3,
         1.0, 2.0, 3.0,
@@ -655,6 +712,8 @@ make_tests() {
         test_mult,
         test_add,
         test_add_inplace,
+        test_sub,
+        test_sub_inplace,
         test_zeros_and_ones,
         test_fill,
         test_transpose,
